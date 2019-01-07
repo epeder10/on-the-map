@@ -22,7 +22,19 @@ import Foundation
  "updatedAt": "2015-03-09T22:04:50.315Z"
  }
  */
-
+/*
+ {
+ "objectId":"RRZ2C7akdV",
+ "uniqueKey":"89039766",
+ "firstName":"Mohammed",
+ "lastName":"Ahmed",
+ "mapString":"buraidah",
+ "mediaURL":"wwww",
+ "latitude":26.3317931,
+ "longitude":43.9704602,
+ "createdAt":"2019-01-06T09:58:12.863Z",
+ "updatedAt":"2019-01-06T09:58:12.863Z"}
+ */
 struct Student: Codable {
     let createdAt: String
     let firstName: String

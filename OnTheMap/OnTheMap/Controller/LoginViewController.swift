@@ -19,12 +19,9 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //button.backgroundColor = .clear
+
         loginButton.layer.cornerRadius = 5
-        //button.layer.borderWidth = 1
-        //button.layer.borderColor = UIColor.black.cgColor
-        
+
         loginFailed.isHidden = true
         setLoggingIn(false)
     }
@@ -32,7 +29,6 @@ class LoginViewController: UIViewController {
     @IBAction func loginButton(_ sender: Any) {
         setLoggingIn(true)
         UdacityClient.getSessionID(username: usernameTextField.text ?? "", password: passwordTextField.text ?? "", completion: self.handleSessionResponse(success:error:))
-        setLoggingIn(false)
     }
     
     func handleSessionResponse(success: Bool, error: Error?) {
@@ -40,7 +36,9 @@ class LoginViewController: UIViewController {
             self.performSegue(withIdentifier: "showTableView", sender: self)
         } else {
             loginFailed.isHidden = false
-            loginFailed.text = "Login failed: \(error?.localizedDescription ?? "")"
+            print("\(error?.localizedDescription ?? "")")
+            loginFailed.text = "Login failed"
+            setLoggingIn(false)
         }
     }
     

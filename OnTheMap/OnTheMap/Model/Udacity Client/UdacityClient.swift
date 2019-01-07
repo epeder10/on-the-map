@@ -26,7 +26,7 @@ class UdacityClient {
         var stringValue: String {
             switch self {
             case .getSession: return Endpoints.sessionBase
-            case .getStudentLocations: return Endpoints.base + "/parse/classes/StudentLocation?limit=100&&order=-updatedAt"
+            case .getStudentLocations: return Endpoints.base + "/parse/classes/StudentLocation?limit=100&order=-updatedAt"
             case .getStudentLocation(let studentId): return Endpoints.base + "/parse/classes/StudentLocation?where=\(studentId)"
             case .createStudentLocation: return Endpoints.base + "/parse/classes/StudentLocation"
             }
@@ -50,6 +50,19 @@ class UdacityClient {
         }
     }
     
+    class func test() {
+        var request = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if error != nil { // Handle error...
+                return
+            }
+            print(String(data: data!, encoding: .utf8)!)
+        }
+        task.resume()
+    }
     /*
      Create student
      */
@@ -61,6 +74,7 @@ class UdacityClient {
      Get 100 student locations per execution.  Use skip variable to control the segment
     */
     class func getStudentLocations(completion: @escaping ([Student], Error?) -> Void) {
+        test()
         taskForGETRequest(url: Endpoints.getStudentLocations.url, response: StudentResponse.self) { (response, error) in
             if let response = response {
                 completion(response.results , nil)
