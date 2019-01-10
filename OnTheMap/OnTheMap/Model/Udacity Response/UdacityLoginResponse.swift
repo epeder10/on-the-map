@@ -31,9 +31,3 @@ struct UdacityLoginResponse: Codable {
     let session: Session
     let account: Account
 }
-
-extension UdacityLoginResponse: LocalizedError {
-    var errorDescription: String? {
-        return account.key
-    }
-}

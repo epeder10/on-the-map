@@ -18,8 +18,12 @@ class StudentTableViewController: UITableViewController {
     }
     
     func handleStudentLocationResponse(students: [Student], error: Error?){
-        self.students = students
-        self.tableView.reloadData()
+        if let error = error {
+            showFailure(message: "Student location data failed to download")
+        } else {
+            self.students = students
+            self.tableView.reloadData()
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,8 +36,9 @@ class StudentTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let student = self.students[(indexPath as NSIndexPath).row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentTableCell", for: indexPath) as! StudentTableCell
-        
-        cell.studentName?.text = "\(student.firstName) \(student.lastName)"
+        if let firstName = student.firstName, let lastName = student.lastName {
+            cell.studentName.text = "\(firstName) \(lastName)"
+        }
         
         return cell
     }
@@ -44,11 +49,13 @@ class StudentTableViewController: UITableViewController {
      */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let student = students[(indexPath as NSIndexPath).row]
-        if let url = URL(string: student.mediaURL) {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                showFailure(message: "\(student.mediaURL) is not a valid URL")
+        if let mediaURL = student.mediaURL {
+            if let url = URL(string: mediaURL) {
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    showFailure(message: "\(mediaURL) is not a valid URL")
+                }
             }
         }
     }

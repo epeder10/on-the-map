@@ -68,8 +68,8 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="81c-1I-Sal">
                                         <rect key="frame" x="197" y="312.66666666666669" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="iCO-Fd-LEe">
-                                        <rect key="frame" x="31" y="345.66666666666669" width="352" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iCO-Fd-LEe">
+                                        <rect key="frame" x="89.666666666666686" y="345.66666666666669" width="235" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Dont have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeB-PT-Vho">
                                                 <rect key="frame" x="0.0" y="0.0" width="175" height="30"/>
@@ -78,8 +78,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnp-p0-q1m">
-                                                <rect key="frame" x="177" y="0.0" width="175" height="30"/>
+                                                <rect key="frame" x="183" y="0.0" width="52" height="30"/>
                                                 <state key="normal" title="Sign up"/>
+                                                <connections>
+                                                    <action selector="signUpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dio-Tz-ay9"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -211,7 +214,7 @@
         <scene sceneID="V3z-YX-jQC">
             <objects>
                 <navigationController id="zug-xF-naj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" id="kgG-UF-oys"/>
+                    <tabBarItem key="tabBarItem" title="List" image="flag" id="kgG-UF-oys"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JhP-R3-ieO">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -228,7 +231,7 @@
         <scene sceneID="aEu-cJ-TTa">
             <objects>
                 <navigationController id="y55-yP-RJh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="OZ2-fs-1h4"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="maps-pin" id="OZ2-fs-1h4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z6U-W5-sJ8">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -271,6 +274,9 @@
                                 <rect key="frame" x="20" y="7" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutButton:" destination="c3k-U8-TdB" eventType="touchUpInside" id="0th-A6-cI6"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -303,17 +309,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="RtW-Ep-XLv">
-                                <rect key="frame" x="0.0" y="103" width="414" height="306"/>
+                                <rect key="frame" x="0.0" y="103" width="414" height="302"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="udacity-logo" translatesAutoresizingMaskIntoConstraints="NO" id="dBR-zr-4us">
-                                        <rect key="frame" x="157" y="0.0" width="100" height="100"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="golf-hole" translatesAutoresizingMaskIntoConstraints="NO" id="dBR-zr-4us">
+                                        <rect key="frame" x="159" y="0.0" width="96" height="96"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="Hud-5O-Eoh"/>
-                                            <constraint firstAttribute="height" constant="100" id="L76-Fy-WFD"/>
+                                            <constraint firstAttribute="width" constant="96" id="Hud-5O-Eoh"/>
+                                            <constraint firstAttribute="height" constant="96" id="L76-Fy-WFD"/>
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sge-tp-7Sv">
-                                        <rect key="frame" x="57" y="124" width="300" height="30"/>
+                                        <rect key="frame" x="57" y="120" width="300" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="pNa-md-tJM"/>
                                         </constraints>
@@ -322,13 +328,13 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f1F-YN-v68">
-                                        <rect key="frame" x="57" y="178" width="300" height="30"/>
+                                        <rect key="frame" x="57" y="174" width="300" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWn-K5-Bgq">
-                                        <rect key="frame" x="57" y="232" width="300" height="30"/>
+                                        <rect key="frame" x="57" y="228" width="300" height="30"/>
                                         <color key="backgroundColor" red="0.0078431372550000003" green="0.70196078429999997" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Find Location">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -338,7 +344,7 @@
                                         </connections>
                                     </button>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Pym-JE-rSv">
-                                        <rect key="frame" x="197" y="286" width="20" height="20"/>
+                                        <rect key="frame" x="197" y="282" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <constraints>
@@ -398,6 +404,9 @@
                                 <state key="normal" title="Finish">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="confirmCreateLocationButton:" destination="R4t-oy-AR2" eventType="touchUpInside" id="FP2-62-1Xo"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -422,6 +431,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="flag" width="24" height="24"/>
+        <image name="golf-hole" width="24" height="24"/>
+        <image name="maps-pin" width="24" height="24"/>
         <image name="udacity-logo" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>

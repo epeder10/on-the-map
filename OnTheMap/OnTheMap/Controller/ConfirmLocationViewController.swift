@@ -14,7 +14,9 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var finishButton: UIButton!
     
     var coordinate:CLLocationCoordinate2D!
-
+    var mapString: String!
+    var mediaURL: String!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +44,6 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.pinTintColor = .red
-            //let button = UIButton(type: .custom)
-            //button.currentTitle = "http://google.com"
-            //pinView!.detailCalloutAccessoryView = button
-            //pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         else {
             pinView!.annotation = annotation
@@ -53,5 +51,22 @@ class ConfirmLocationViewController: UIViewController, MKMapViewDelegate {
         
         return pinView
     }
+    @IBAction func confirmCreateLocationButton(_ sender: Any) {
+        UdacityClient.createStudentLocation(mapString: self.mapString, mediaURL: self.mediaURL, latitude: self.coordinate.latitude, longitude: self.coordinate.longitude, completion: self.handleCreateLocationResponse(success:error:))
+    }
     
+    func handleCreateLocationResponse(success: Bool, error: Error?){
+        if success {
+            self.navigationController?.popToRootViewController(animated: true)
+        } else {
+            showFailure(message: error?.localizedDescription ?? "")
+        }
+    }
+    
+    func showFailure(message: String) {
+        let alertVC = UIAlertController(title: "Invalid Request", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        self.present(alertVC, animated: true, completion: nil)
+    }
 }

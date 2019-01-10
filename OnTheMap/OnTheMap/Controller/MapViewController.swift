@@ -23,31 +23,43 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func handleStudentLocationResponse(students: [Student], error: Error?){
-        self.locations = students
-        loadPins()
+        if let error = error {
+            showFailure(message: "Student location data failed to download")
+        } else {
+            self.locations = students
+            loadPins()
+        }
     }
     
     func loadPins() {
         var annotations = [MKPointAnnotation]()
         
         for student in locations {
-            let lat = CLLocationDegrees(student.latitude)
-            let long = CLLocationDegrees(student.longitude)
-            
-            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            
-            let first = student.firstName
-            let last = student.lastName
-            let mediaURL = student.mediaURL
-            
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            annotation.title = "\(first) \(last)"
-            annotation.subtitle = mediaURL
-            
-            annotations.append(annotation)
+            if let latitude = student.latitude, let longitude = student.longitude, let first = student.firstName, let last = student.lastName, let mediaURL = student.mediaURL {
+                let lat = CLLocationDegrees(latitude)
+                let long = CLLocationDegrees(longitude)
+                
+                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = "\(first) \(last)"
+                annotation.subtitle = mediaURL
+                
+                annotations.append(annotation)
+            }
         }
         self.mapView.addAnnotations(annotations)
+    }
+    
+    @IBAction func logoutButton(_ sender: Any) {
+        UdacityClient.deleteSession(completion: self.handleDeleteSessionResponse(success:error:))
+    }
+    
+    func handleDeleteSessionResponse(success: Bool, error: Error?) {
+        if success {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func reloadData(_ sender: Any) {
@@ -69,10 +81,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.pinTintColor = .red
-            let button = UIButton(type: .custom)
-            //button.currentTitle = "http://google.com"
-            pinView!.detailCalloutAccessoryView = button
-            //pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            //let label = UILabel()
+            //label.text = annotation.subtitle ?? ""
+            //pinView!.detailCalloutAccessoryView = label
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         else {
             pinView!.annotation = annotation
@@ -81,15 +93,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return pinView
     }
     
-    
     // This delegate method is implemented to respond to taps. It opens the system browser
     // to the URL specified in the annotationViews subtitle property.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if control == view.detailCalloutAccessoryView {
-            if let toOpen = view.annotation?.subtitle! {
-                if let url = URL(string: toOpen) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
+        //if control == view.rightCalloutAccessoryView {
+        if let toOpen = view.annotation?.subtitle! {
+            if let url = URL(string: toOpen) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
     }
