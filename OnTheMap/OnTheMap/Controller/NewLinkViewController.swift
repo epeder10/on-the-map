@@ -132,9 +132,7 @@ class NewLinkViewController: UIViewController, UINavigationControllerDelegate, U
     }
     
     @objc func keyboardWillShow(_ notification:Notification){
-        //if linkTextView.isEditing{
         view.frame.origin.y = -55
-        //}
     }
     
     @objc func keyboardWillHide(_ notification:Notification){
